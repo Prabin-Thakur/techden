@@ -1,0 +1,108 @@
+.card-container {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 50px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  .image {
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    position: relative;
+
+    &:hover {
+      .secondImg {
+        z-index: 2;
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+    }
+
+    .mainImg {
+      z-index: 1;
+    }
+
+    span {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      background-color: white;
+      color: teal;
+      padding: 4px 10px;
+      z-index: 3;
+      font-weight: 500;
+      font-size: 12px;
+    }
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-decoration: none !important;
+  }
+
+  .prices {
+    display: flex;
+    gap: 20px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+      &:nth-child(2) {
+        color: gray;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .card-container {
+    width: 250px;
+    overflow: hidden;
+
+    .image {
+      height: 300px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .card-container {
+    width: 200px;
+    overflow: hidden;
+
+    .image {
+      height: 250px;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
+
+    .prices {
+      h3 {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    width: 160px;
+    overflow: hidden;
+
+    .image {
+      height: 200px;
+    }
+  }
+}

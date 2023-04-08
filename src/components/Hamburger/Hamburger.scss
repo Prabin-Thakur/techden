@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+
+.hamburger_container {
+  width: 3.5rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .hamburger_lines {
+    height: 0.4rem;
+    border-radius: 5px;
+    background-color: black;
+    transition: background-color 0.1s ease-in-out;
+  }
+
+  .line1 {
+    width: 2.5rem;
+    height: 4px;
+  }
+  .line2 {
+    width: 2.5rem;
+    height: 4px;
+  }
+}

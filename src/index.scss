@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+// width
+::-webkit-scrollbar {
+  width: 5px; // for vertical scrollbar width
+  height: 5px; // for horizontal scrollbar height
+}
+
+// button its the part that shows in which part of the page you are on
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 100vw; // for pill shape of scrollbar
+  max-height: 10%;
+  max-width: 10%;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5d5c5c;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100vw; // for pill shape of scrollbar background
+  background: none; // set your custom background color here
+}
+
+/* Corner */
+::-webkit-scrollbar-corner {
+  background: none;
+}
+
+// its the little extra space by default in the scrollbar
+::-webkit-scrollbar-button {
+  display: none; // if you want to hide it
+  height: 5px;
+  width: 5px;
+}

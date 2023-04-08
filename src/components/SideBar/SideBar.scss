@@ -1,0 +1,154 @@
+@import "../../styles/variables.scss";
+
+.sideBar_container {
+  position: relative;
+}
+
+.siderBar_elements {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sideBar_closeIcon {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  color: $PRIMARY;
+  transition: color 0.1s ease-in-out;
+  &:hover {
+    cursor: pointer;
+    color: rgb(115, 115, 115);
+  }
+}
+
+.logout_icon {
+  width: 8.5rem;
+  display: flex;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  color: rgb(196, 68, 68);
+  transform: translateX(-50%);
+  &:hover {
+    cursor: pointer;
+    color: red;
+  }
+}
+
+.drawer_links_container {
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  color: rgb(69, 69, 69);
+}
+
+.drawer_items {
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  transition: color 0.1 ease-in-out;
+  &:hover {
+    cursor: pointer;
+    color: rgb(136, 135, 135);
+  }
+}
+
+.sidebar-search {
+  margin-top: 30%;
+  width: 14rem;
+  height: 3rem;
+  position: relative;
+
+  .search-field {
+    width: 100%;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 2.5rem;
+    font-size: 1rem;
+  }
+  .icon {
+    width: 1.3rem;
+    color: #6c6b6b;
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    transition: color 0.1s ease-in-out;
+    &:hover {
+      color: black;
+      cursor: pointer;
+    }
+  }
+}
+
+.sidebar-icons {
+  padding-right: 5%;
+  padding-bottom: 10%;
+  display: flex;
+  gap: 20px;
+  color: #777;
+  cursor: pointer;
+
+  .icons {
+    transition: color 0.1s ease-in-out;
+    &:hover {
+      color: rgb(54, 54, 54);
+    }
+  }
+
+  .cart-icon {
+    position: relative;
+
+    span {
+      font-size: 12px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+      position: absolute;
+      right: -10px;
+      top: -10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

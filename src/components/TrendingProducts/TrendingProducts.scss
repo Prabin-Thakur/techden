@@ -1,0 +1,69 @@
+.trending-products-container {
+  width: 100%;
+  height: auto;
+  max-width: 140rem;
+  margin: 2rem auto;
+  display: flex;
+
+  flex-direction: column;
+
+  .top {
+    font-size: clamp(0.8rem, 5vw, 1.5rem);
+    letter-spacing: 1px;
+    padding-left: 10%;
+    margin-bottom: 2rem;
+
+    span {
+      color: red;
+    }
+  }
+
+  @media (max-width: 1220px) {
+    .top {
+      align-self: center;
+      padding-left: 0%;
+    }
+  }
+
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    height: auto;
+  }
+
+  @media (max-width: 600px) {
+    .center {
+      gap: 1rem;
+    }
+  }
+  @media (max-width: 500px) {
+    .center {
+      gap: 5px;
+    }
+  }
+
+  .bottom {
+    width: 10rem;
+    height: 3rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    background-color: red;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    letter-spacing: 2px;
+    transition: all 0.1s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      border: 2px solid black;
+      background-color: white;
+      color: black;
+    }
+  }
+}
