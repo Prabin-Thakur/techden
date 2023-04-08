@@ -31,19 +31,7 @@
     align-items: center;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 2rem;
     height: auto;
-  }
-
-  @media (max-width: 600px) {
-    .center {
-      gap: 1rem;
-    }
-  }
-  @media (max-width: 500px) {
-    .center {
-      gap: 5px;
-    }
   }
 
   .bottom {
