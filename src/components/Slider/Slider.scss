@@ -41,23 +41,34 @@
     }
 
     .small-text {
-      font-size: clamp(1rem, 5vw, 2rem);
+      font-size: clamp(1rem, 5vw, 1.8rem);
       font-weight: 400;
       color: white;
-      padding-top: 1rem;
-      padding-left: 40%;
-      color: red;
+      margin-top: 1rem;
+      margin-left: 40%;
+      border: 2px solid red;
+      width: 10rem;
       display: flex;
       align-items: center;
+      justify-content: center;
+      background-color: red;
+      letter-spacing: 1px;
+      border-radius: 1px;
+
       &:hover {
         cursor: pointer;
-        color: rgb(209, 34, 34);
+        border: none;
+        background-color: white;
+        color: black;
+        .arrow {
+          color: black;
+        }
       }
 
       .arrow {
-        width: 2rem;
+        width: 1.8rem;
         height: 2.2rem;
-        color: red;
+        color: white;
       }
     }
   }
@@ -67,11 +78,22 @@
     display: flex;
     transition: all 1s ease;
 
+    // .overlay {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   right: 0;
+    //   bottom: 0;
+    //   background: linear-gradient(90deg, rgb(0, 0, 0), transparent);
+    //   z-index: 1;
+    // }
+
     img {
       width: 100vw;
       height: 100%;
       object-fit: cover;
       object-position: center;
+      position: relative;
     }
   }
 

@@ -11,14 +11,14 @@ const Card: React.FC<{ item: Product }> = ({ item }) => {
       onClick={() => navigate(`/product/${item.id}`)}
     >
       <div className="image">
-        {item?.isNew && <span>New</span>}
+        {item?.new && <span>New</span>}
         <img src={item?.img1} alt="" className="mainImg" />
         <img src={item?.img2} alt="" className="secondImg" />
       </div>
       <h2>{item?.title}</h2>
       <div className="prices">
         <h3>${item?.price}</h3>
-        <h3>${item.oldPrice}</h3>
+        {item?.oldPrice && <h3>${item.oldPrice}</h3>}
       </div>
     </div>
   );

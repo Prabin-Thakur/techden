@@ -1,12 +1,13 @@
 export interface Product {
   id: string;
+  title: string;
+  type: "Camera" | "SmartPhone" | "Audio" | "Pc" | "Wearable";
   img1: string;
   img2: string;
   img3?: string;
   img4?: string;
-  title: string;
   price: number;
   oldPrice?: number;
-  isNew?: boolean;
-  isTrending?: boolean;
+  new?: boolean;
+  trending?: boolean;
 }

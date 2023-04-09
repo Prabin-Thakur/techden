@@ -8,10 +8,13 @@
   flex-direction: column;
 
   .top {
-    font-size: clamp(0.8rem, 5vw, 1.5rem);
-    letter-spacing: 1px;
-    padding-left: 10%;
-    margin-bottom: 2rem;
+    p {
+      font-size: clamp(1.6rem, 5vw, 2.5rem);
+      letter-spacing: 1px;
+      padding-left: 5%;
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
 
     span {
       color: red;
@@ -20,8 +23,12 @@
 
   @media (max-width: 1220px) {
     .top {
-      align-self: center;
-      padding-left: 0%;
+      //align-self: center;
+      text-align: canter;
+      p {
+        text-align: center;
+        padding-left: 0%;
+      }
     }
   }
 

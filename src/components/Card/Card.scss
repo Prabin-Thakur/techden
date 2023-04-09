@@ -1,33 +1,51 @@
 .card-container {
-  width: 300px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
   margin-left: 1rem;
   margin-right: 1rem;
+  background-color: whitesmoke;
+  border-radius: 1px;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   .image {
     width: 100%;
-    height: 380px;
+    height: 280px;
     overflow: hidden;
     position: relative;
+    mix-blend-mode: darken;
 
     &:hover {
       .secondImg {
         z-index: 2;
+        visibility: visible;
+      }
+      .mainImg {
+        visibility: hidden;
       }
     }
 
     img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
       position: absolute;
+      padding-left: 10px;
+      padding-right: 5px;
     }
 
     .mainImg {
       z-index: 1;
+    }
+
+    .secondImg {
+      visibility: hidden;
     }
 
     span {
@@ -45,13 +63,17 @@
 
   h2 {
     font-size: 1.2rem;
+    padding-top: 10px;
     font-weight: 400;
     text-decoration: none !important;
+    padding-left: 10px;
   }
 
   .prices {
     display: flex;
     gap: 20px;
+    padding-left: 10px;
+    padding-bottom: 10px;
 
     h3 {
       font-size: 16px;
@@ -64,41 +86,20 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1260px) {
   .card-container {
     width: 250px;
     overflow: hidden;
 
     .image {
-      height: 300px;
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .card-container {
-    width: 200px;
-    overflow: hidden;
-
-    .image {
       height: 250px;
     }
-
-    h2 {
-      font-size: 1rem;
-    }
-
-    .prices {
-      h3 {
-        font-size: 13px;
-      }
-    }
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1140px) {
   .card-container {
-    width: 160px;
+    width: 220px;
     overflow: hidden;
 
     .image {
@@ -106,14 +107,87 @@
     }
   }
 }
-
-@media (max-width: 380px) {
+@media (max-width: 1020px) {
   .card-container {
-    width: 140px;
+    width: 200px;
     overflow: hidden;
 
     .image {
-      height: 180px;
+      height: 200px;
+    }
+  }
+}
+@media (max-width: 700px) {
+  .card-container {
+    width: 190px;
+    overflow: hidden;
+
+    .image {
+      height: 160px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .card-container {
+    width: 190px;
+    overflow: hidden;
+
+    .image {
+      height: 160px;
+    }
+
+    h2 {
+      font-size: 0.9rem;
+    }
+
+    .prices {
+      h3 {
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    width: 190px;
+    overflow: hidden;
+
+    .image {
+      height: 150px;
+    }
+  }
+}
+@media (max-width: 450px) {
+  .card-container {
+    width: 160px;
+    overflow: hidden;
+
+    .image {
+      height: 120px;
+    }
+  }
+}
+
+@media (max-width: 390px) {
+  .card-container {
+    width: 150px;
+    overflow: hidden;
+
+    .image {
+      height: 120px;
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .card-container {
+    width: 130px;
+    overflow: hidden;
+
+    .image {
+      height: 110px;
     }
   }
 }
