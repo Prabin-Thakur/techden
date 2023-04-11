@@ -84,7 +84,10 @@ const NavBar: React.FC = () => {
               }}
             />
             <PersonOutlineOutlinedIcon className="icons" />
-            <FavoriteBorderOutlinedIcon className="icons" />
+            <FavoriteBorderOutlinedIcon
+              className="icons"
+              onClick={() => navigate("/favourites")}
+            />
             <div className="cart-icon" onClick={() => dispatch(showCart())}>
               <ShoppingCartOutlinedIcon className="icons" />
               <span>{cartList.length}</span>

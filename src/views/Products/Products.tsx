@@ -16,7 +16,7 @@ const Products: React.FC = () => {
   return (
     <div className="products-container">
       {products.length !== 0 ? (
-        products.map((el: Product) => <Card item={el} />)
+        products.map((el: Product) => <Card item={el} key={el.id} />)
       ) : (
         <div className="skeleton_container">
           <Skeleton

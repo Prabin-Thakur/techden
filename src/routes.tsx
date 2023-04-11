@@ -15,6 +15,7 @@ import Cart from "./components/Cart/Cart";
 import { useAppSelector } from "./redux/hooks";
 import SnackBar from "./components/SnackBar/SnackBar";
 import { LocalStorageProvider } from "./context/localStorageContext";
+import Favourites from "./components/Favourites/Favourites";
 
 const RootLayout = () => {
   const cart: boolean = useAppSelector((state) => state.cart) || false;
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="/home" element={<Home />} />
+      <Route path="/favourites" element={<Favourites />} />
       <Route path="/products" element={<Products />} />
       <Route path="/product/:id" element={<Product />} />
       <Route path="*" element={<Missing />} />

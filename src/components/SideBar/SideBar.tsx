@@ -141,7 +141,13 @@ const SideBar: React.FC = () => {
         </div>
         <div className="sidebar-icons">
           <PersonOutlineOutlinedIcon className="icons" />
-          <FavoriteBorderOutlinedIcon className="icons" />
+          <FavoriteBorderOutlinedIcon
+            className="icons"
+            onClick={() => {
+              dispatch(hideSideBar());
+              navigate("/favourites");
+            }}
+          />
           <div
             className="cart-icon"
             onClick={() => {

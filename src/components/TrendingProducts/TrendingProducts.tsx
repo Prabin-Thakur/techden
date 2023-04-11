@@ -4,6 +4,7 @@ import "./TrendingProducts.scss";
 import { Product } from "../../models/models";
 import { useAppSelector } from "../../redux/hooks";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const FeaturedProducts: React.FC<{ type: string }> = ({ type }) => {
   const products: Product[] = useAppSelector((state) => state.products) || [];
@@ -24,14 +25,30 @@ const FeaturedProducts: React.FC<{ type: string }> = ({ type }) => {
           <span>{type}</span> Products
         </p>
       </div>
-      <div className="center">
-        {product?.map((item: Product) => (
-          <Card item={item} key={item.id} />
-        ))}
-      </div>
-      <div className="bottom" onClick={() => navigate("/products")}>
-        BROWSE
-      </div>
+
+      {product.length > 0 ? (
+        <>
+          <div className="center">
+            {product?.map((item: Product) => (
+              <Card item={item} key={item.id} />
+            ))}
+          </div>
+          <div className="bottom" onClick={() => navigate("/products")}>
+            BROWSE
+          </div>
+        </>
+      ) : (
+        <div
+          style={{
+            height: "50vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      )}
     </div>
   );
 };

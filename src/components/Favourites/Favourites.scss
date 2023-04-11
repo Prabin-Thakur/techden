@@ -1,0 +1,22 @@
+.favourite-container {
+  width: 100%;
+  max-width: 140rem;
+  height: fit-content;
+  overflow: hidden;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.text-favourites {
+  font-size: clamp(1.2rem, 5vw, 2rem);
+  word-wrap: break-word;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-align: center;
+}
