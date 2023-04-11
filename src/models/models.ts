@@ -10,4 +10,5 @@ export interface Product {
   oldPrice?: number;
   new?: boolean;
   trending?: boolean;
+  description?: string;
 }

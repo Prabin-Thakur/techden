@@ -52,7 +52,6 @@
     .large-image {
       display: flex;
       justify-content: center;
-
       width: 70%;
       height: 100%;
       .large-image-image {
@@ -80,6 +79,13 @@
     flex-direction: column;
     padding-top: 1rem;
     gap: 10px;
+
+    .title {
+      font-size: clamp(1.6rem, 5vw, 2rem);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-align: center;
+    }
 
     .price {
       letter-spacing: 1px;
@@ -202,7 +208,8 @@
         justify-content: center;
         order: 2;
         flex-direction: row;
-        gap: 1rem;
+        gap: 10px;
+        flex-wrap: wrap;
       }
 
       .large-image {

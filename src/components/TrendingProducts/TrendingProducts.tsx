@@ -3,9 +3,11 @@ import Card from "../Card/Card";
 import "./TrendingProducts.scss";
 import { Product } from "../../models/models";
 import { useAppSelector } from "../../redux/hooks";
+import { useNavigate } from "react-router-dom";
 
 const FeaturedProducts: React.FC<{ type: string }> = ({ type }) => {
   const products: Product[] = useAppSelector((state) => state.products) || [];
+  const navigate = useNavigate();
 
   const product = useMemo(
     () =>
@@ -27,7 +29,9 @@ const FeaturedProducts: React.FC<{ type: string }> = ({ type }) => {
           <Card item={item} key={item.id} />
         ))}
       </div>
-      <div className="bottom">BROWSE</div>
+      <div className="bottom" onClick={() => navigate("/products")}>
+        BROWSE
+      </div>
     </div>
   );
 };

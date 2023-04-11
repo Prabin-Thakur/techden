@@ -7,12 +7,17 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useNavigate, Link } from "react-router-dom";
 import Hamburger from "../Hamburger/Hamburger";
+import { showCart } from "../../redux/cart/cartSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import { useStorage } from "../../context/localStorageContext";
 
 const NavBar: React.FC = () => {
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const { cartList } = useStorage();
 
   //to hide search field if other area than search is clicked
   useEffect(() => {
@@ -80,9 +85,9 @@ const NavBar: React.FC = () => {
             />
             <PersonOutlineOutlinedIcon className="icons" />
             <FavoriteBorderOutlinedIcon className="icons" />
-            <div className="cart-icon">
+            <div className="cart-icon" onClick={() => dispatch(showCart())}>
               <ShoppingCartOutlinedIcon className="icons" />
-              <span>{0}</span>
+              <span>{cartList.length}</span>
             </div>
           </div>
         )}

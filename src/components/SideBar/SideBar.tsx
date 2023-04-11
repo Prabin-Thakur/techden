@@ -10,6 +10,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { useStorage } from "../../context/localStorageContext";
+import { showCart } from "../../redux/cart/cartSlice";
 
 const SideBar: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +19,7 @@ const SideBar: React.FC = () => {
   const sideBarShowing = useAppSelector((state) => state.sideBar);
   const [rotate, setRotate] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const { cartList } = useStorage();
 
   return (
     <Drawer
@@ -139,9 +142,15 @@ const SideBar: React.FC = () => {
         <div className="sidebar-icons">
           <PersonOutlineOutlinedIcon className="icons" />
           <FavoriteBorderOutlinedIcon className="icons" />
-          <div className="cart-icon">
+          <div
+            className="cart-icon"
+            onClick={() => {
+              dispatch(hideSideBar());
+              dispatch(showCart());
+            }}
+          >
             <ShoppingCartOutlinedIcon className="icons" />
-            <span>{0}</span>
+            <span>{cartList.length}</span>
           </div>
         </div>
       </div>

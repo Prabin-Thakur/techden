@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
 import KeyboardDoubleArrowRightRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowRightRounded";
+import { useNavigate } from "react-router-dom";
 import "./Slider.scss";
 
 const data = [
@@ -13,6 +14,7 @@ const data = [
 
 const Slider: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,7 +58,7 @@ const Slider: React.FC = () => {
         <div className="big-text">Exclusive</div>
         <div className="big-text item2">Products</div>
         <div className="line"></div>
-        <div className="small-text">
+        <div className="small-text" onClick={() => navigate("/products")}>
           SHOP <KeyboardDoubleArrowRightRoundedIcon className="arrow" />
         </div>
       </div>
