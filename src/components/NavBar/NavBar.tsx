@@ -1,28 +1,33 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./NavBar.scss";
-import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import { useNavigate, Link } from "react-router-dom";
 import Hamburger from "../Hamburger/Hamburger";
 import { showCart } from "../../redux/cart/cartSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { useStorage } from "../../context/localStorageContext";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 const NavBar: React.FC = () => {
-  const [openSearch, setOpenSearch] = useState<boolean>(false);
-  const searchRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const dispatch = useAppDispatch();
   const { cartList } = useStorage();
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchIconRef = useRef<SVGSVGElement>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   //to hide search field if other area than search is clicked
   useEffect(() => {
     let handler = (event: any) => {
-      if (!searchRef.current?.contains(event.target)) {
+      if (
+        !searchRef.current?.contains(event.target) &&
+        !searchInputRef.current?.contains(event.target) &&
+        !searchIconRef.current?.contains(event.target)
+      ) {
         setOpenSearch(false);
         setSearchQuery("");
       }
@@ -34,6 +39,18 @@ const NavBar: React.FC = () => {
       document.removeEventListener("mousedown", handler);
     };
   }, [searchRef]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (openSearch) {
+      timer = setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 200);
+    }
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [openSearch]);
 
   return (
     <div className="navbar-container">
@@ -57,27 +74,42 @@ const NavBar: React.FC = () => {
         </div>
 
         {openSearch ? (
-          <div className="navbar-search">
+          <div className="navbar-search" ref={searchRef}>
             <input
-              maxLength={20}
-              ref={searchRef}
-              placeholder="Search"
+              ref={searchInputRef}
+              maxLength={25}
+              placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               type="text"
               className="search-field"
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  if (searchQuery.replace(/ /g, "").length === 0) {
+                    setSearchQuery("");
+                    return;
+                  }
+                  navigate(`/search/${searchQuery}`);
+                  setSearchQuery("");
+                }
+              }}
             />
-            <CloseRoundedIcon
+            <SearchRoundedIcon
+              ref={searchIconRef}
               className="icon"
               onClick={() => {
-                setOpenSearch(false);
+                if (searchQuery.replace(/ /g, "").length === 0) {
+                  setSearchQuery("");
+                  return;
+                }
+                navigate(`/search/${searchQuery}`);
                 setSearchQuery("");
               }}
             />
           </div>
         ) : (
           <div className="navbar-icons">
-            <SearchIcon
+            <SearchRoundedIcon
               className="icons"
               onClick={() => {
                 setOpenSearch(true);
@@ -90,7 +122,13 @@ const NavBar: React.FC = () => {
             />
             <div className="cart-icon" onClick={() => dispatch(showCart())}>
               <ShoppingCartOutlinedIcon className="icons" />
-              <span>{cartList.length}</span>
+              <span
+                style={{
+                  backgroundColor: `${cartList.length === 0 ? "#2879fe" : ""}`,
+                }}
+              >
+                {cartList.length}
+              </span>
             </div>
           </div>
         )}

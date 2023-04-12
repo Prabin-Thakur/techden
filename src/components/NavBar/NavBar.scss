@@ -48,27 +48,30 @@
     }
 
     .navbar-search {
-      width: 13rem;
-      height: 2.2rem;
+      width: 20rem;
+      min-width: 15rem;
+      height: 3rem;
       margin-right: 5%;
       position: relative;
       -webkit-animation: slide-in-right 0.2s ease-in-out both;
       animation: slide-in-right 0.2s ease-in-out both;
-      padding-bottom: 2px;
 
       .search-field {
         width: 100%;
         height: 100%;
-        padding-left: 5px;
+        padding-left: 10px;
         padding-right: 2.5rem;
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
       .icon {
-        width: 1.3rem;
+        width: 2rem;
         color: #6c6b6b;
         position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         right: 5px;
-        top: 1px;
+        display: flex;
+        align-items: center;
         transition: color 0.1s ease-in-out;
         &:hover {
           color: black;
@@ -111,7 +114,7 @@
       }
     }
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
       .navbar-links {
         display: none;
       }
@@ -127,7 +130,8 @@
         display: none;
       }
     }
-    @media (min-width: 1000px) {
+
+    @media (min-width: 1100px) {
       .hamburger-icon {
         display: none;
       }

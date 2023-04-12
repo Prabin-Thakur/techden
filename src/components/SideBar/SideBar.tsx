@@ -3,7 +3,6 @@ import { Drawer } from "@mui/material";
 import { hideSideBar } from "../../redux/sideBar/sideBarSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import CloseIcon from "@mui/icons-material/Close";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import "./SideBar.scss";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
@@ -12,6 +11,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useStorage } from "../../context/localStorageContext";
 import { showCart } from "../../redux/cart/cartSlice";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 const SideBar: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -56,18 +56,33 @@ const SideBar: React.FC = () => {
             transition: rotate ? "transform 0.1s ease" : "none",
           }}
         />
-        <div className="sidebar-search">
+        <div className="sideBar-search">
           <input
-            maxLength={20}
-            placeholder="Search"
+            maxLength={25}
+            placeholder="Search products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             className="search-field"
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                if (searchQuery.replace(/ /g, "").length === 0) {
+                  setSearchQuery("");
+                  return;
+                }
+                navigate(`/search/${searchQuery}`);
+                setSearchQuery("");
+              }
+            }}
           />
-          <CloseRoundedIcon
+          <SearchRoundedIcon
             className="icon"
             onClick={() => {
+              if (searchQuery.replace(/ /g, "").length === 0) {
+                setSearchQuery("");
+                return;
+              }
+              navigate(`/search/${searchQuery}`);
               setSearchQuery("");
             }}
           />
@@ -156,7 +171,13 @@ const SideBar: React.FC = () => {
             }}
           >
             <ShoppingCartOutlinedIcon className="icons" />
-            <span>{cartList.length}</span>
+            <span
+              style={{
+                backgroundColor: `${cartList.length === 0 ? "#2879fe" : ""}`,
+              }}
+            >
+              {cartList.length}
+            </span>
           </div>
         </div>
       </div>

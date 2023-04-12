@@ -9,9 +9,23 @@
   background-color: whitesmoke;
   border-radius: 1px;
   padding-top: 8px;
+  position: relative;
 
   &:hover {
     cursor: pointer;
+  }
+
+  .remove-favourite {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: red;
+    font-size: 30px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 
   .image {

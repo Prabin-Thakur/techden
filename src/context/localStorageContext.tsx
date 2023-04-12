@@ -11,6 +11,7 @@ interface CartList {
 interface LocalStorageContextProps {
   wishList: string[];
   addWishList: (id: string) => void;
+  removeWishList: (id: string) => void;
   cartList: CartList[];
   addCartList: (key: string, quantity: number) => void;
   removeCartList: (key: string) => void;
@@ -20,6 +21,7 @@ interface LocalStorageContextProps {
 export const LocalStorageContext = createContext<LocalStorageContextProps>({
   wishList: [],
   addWishList: () => {},
+  removeWishList: () => {},
   cartList: [],
   addCartList: () => {},
   removeCartList: () => {},
@@ -77,6 +79,14 @@ export const LocalStorageProvider = (props: LocalStorageProviderProps) => {
     }
   };
 
+  const removeWishList = (id: string) => {
+    const filteredArray = wishList.filter((el: string) => el !== id);
+    setWishList(filteredArray);
+    dispatch(
+      showSnackBar({ text: "Item removed from Favourites", type: "info" })
+    );
+  };
+
   const removeCartList = (id: string) => {
     const updatedCartList = cartList.filter((item: CartList) => item.id !== id);
     setCartList(updatedCartList);
@@ -92,6 +102,7 @@ export const LocalStorageProvider = (props: LocalStorageProviderProps) => {
       value={{
         wishList,
         addWishList,
+        removeWishList,
         cartList,
         addCartList,
         removeCartList,
