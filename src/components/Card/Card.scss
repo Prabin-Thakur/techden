@@ -17,8 +17,8 @@
 
   .remove-favourite {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
+    right: 5px;
+    bottom: 0px;
     color: red;
     font-size: 30px;
     cursor: pointer;
@@ -132,7 +132,7 @@
     }
   }
 }
-@media (max-width: 700px) {
+@media (max-width: 730px) {
   .card-container {
     width: 190px;
     overflow: hidden;
@@ -187,7 +187,7 @@
 
 @media (max-width: 390px) {
   .card-container {
-    width: 150px;
+    width: 160px;
     overflow: hidden;
 
     .image {
@@ -198,11 +198,21 @@
 
 @media (max-width: 370px) {
   .card-container {
+    width: 150px;
+    overflow: hidden;
+
+    .image {
+      height: 100px;
+    }
+  }
+}
+@media (max-width: 340px) {
+  .card-container {
     width: 130px;
     overflow: hidden;
 
     .image {
-      height: 110px;
+      height: 90px;
     }
   }
 }

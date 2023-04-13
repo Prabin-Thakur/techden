@@ -17,6 +17,7 @@ import SnackBar from "./components/SnackBar/SnackBar";
 import { LocalStorageProvider } from "./context/localStorageContext";
 import Favourites from "./components/Favourites/Favourites";
 import SearchedProducts from "./views/SearchedProducts/SearchedProducts";
+import Category from "./views/Category/Category";
 
 const RootLayout = () => {
   const cart: boolean = useAppSelector((state) => state.cart) || false;
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="/home" element={<Home />} />
       <Route path="/favourites" element={<Favourites />} />
       <Route path="/products" element={<Products />} />
+      <Route path="/products/:category" element={<Category />} />
       <Route path="/product/:id" element={<Product />} />
       <Route path="/search/:query" element={<SearchedProducts />} />
       <Route path="*" element={<Missing />} />

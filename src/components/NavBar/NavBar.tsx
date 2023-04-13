@@ -9,48 +9,46 @@ import { showCart } from "../../redux/cart/cartSlice";
 import { useAppDispatch } from "../../redux/hooks";
 import { useStorage } from "../../context/localStorageContext";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import { Product } from "../../models/models";
+import { useAppSelector } from "../../redux/hooks";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const products: Product[] = useAppSelector((state) => state.products) || [];
   const { cartList } = useStorage();
   const [openSearch, setOpenSearch] = useState<boolean>(false);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const searchIconRef = useRef<SVGSVGElement>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  // const searchRef = useRef<HTMLDivElement>(null);
+  // const searchInputRef = useRef<any>(null);
+  // const autoCompleteRef = useRef<any>(null);
+  // const searchIconRef = useRef<SVGSVGElement>(null);
+  // const optionsRef = useRef<any>(null);
 
-  //to hide search field if other area than search is clicked
-  useEffect(() => {
-    let handler = (event: any) => {
-      if (
-        !searchRef.current?.contains(event.target) &&
-        !searchInputRef.current?.contains(event.target) &&
-        !searchIconRef.current?.contains(event.target)
-      ) {
-        setOpenSearch(false);
-        setSearchQuery("");
-      }
-    };
+  // //to hide search field if other area than search is clicked
+  // useEffect(() => {
+  //   let handler = (event: any) => {
+  //     if (
+  //       !searchRef.current?.contains(event.target) &&
+  //       !searchInputRef.current?.contains(event.target) &&
+  //       !searchIconRef.current?.contains(event.target) &&
+  //       !autoCompleteRef.current?.contains(event.target) &&
+  //       !optionsRef.current?.contains(event.target)
+  //     ) {
+  //       setOpenSearch(false);
+  //       setSearchQuery("");
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handler);
+  //   document.addEventListener("mousedown", handler);
 
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
-  }, [searchRef]);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (openSearch) {
-      timer = setTimeout(() => {
-        searchInputRef.current?.focus();
-      }, 200);
-    }
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [openSearch]);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handler);
+  //   };
+  // }, [searchRef]);
 
   return (
     <div className="navbar-container">
@@ -59,50 +57,79 @@ const NavBar: React.FC = () => {
           TECH<span>DEN</span>
         </div>
         <div className="navbar-links">
-          <Link className="links" to="/smartphone">
+          <Link className="links" to="/products/smartphone">
             Smartphone
           </Link>
-          <Link className="links" to="/pc">
+          <Link className="links" to="/products/camera">
             Camera
           </Link>
-          <Link className="links" to="/audio">
+          <Link className="links" to="/products/audio">
             Audio
           </Link>
-          <Link className="links" to="/wearables">
+
+          <Link className="links" to="/products/wearable">
             Wearables
+          </Link>
+          <Link className="links" to="/products/pc">
+            Pc
           </Link>
         </div>
 
         {openSearch ? (
-          <div className="navbar-search" ref={searchRef}>
-            <input
-              ref={searchInputRef}
-              maxLength={25}
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              type="text"
+          <div className="navbar-search">
+            <Autocomplete
               className="search-field"
-              onKeyPress={(event) => {
-                if (event.key === "Enter") {
-                  if (searchQuery.replace(/ /g, "").length === 0) {
-                    setSearchQuery("");
-                    return;
-                  }
-                  navigate(`/search/${searchQuery}`);
-                  setSearchQuery("");
-                }
-              }}
+              id="free-solo-demo"
+              freeSolo
+              options={products.map((option) => option.title)}
+              renderInput={(params) => (
+                <TextField
+                  autoFocus
+                  value={searchQuery}
+                  className="text-field"
+                  placeholder="Search Products..."
+                  {...params}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                  }}
+                  onKeyPress={(event) => {
+                    if (event.key === "Enter") {
+                      if (searchQuery.replace(/ /g, "").length === 0) {
+                        setSearchQuery("");
+                        return;
+                      }
+                      navigate(`/search/${searchQuery}`);
+                      setSearchQuery("");
+                      setOpenSearch(false);
+                    }
+                  }}
+                  InputProps={{
+                    ...params.InputProps,
+                    // @ts-ignore
+                    maxLength: 25,
+                    endAdornment: (
+                      <div
+                        onClick={() => {
+                          if (searchQuery.replace(/ /g, "").length === 0) {
+                            setSearchQuery("");
+                            return;
+                          }
+                          navigate(`/search/${searchQuery}`);
+                          setSearchQuery("");
+                          setOpenSearch(false);
+                        }}
+                      >
+                        <SearchRoundedIcon className="icon" />
+                      </div>
+                    ),
+                  }}
+                />
+              )}
             />
-            <SearchRoundedIcon
-              ref={searchIconRef}
-              className="icon"
+            <CloseRoundedIcon
+              className="close"
               onClick={() => {
-                if (searchQuery.replace(/ /g, "").length === 0) {
-                  setSearchQuery("");
-                  return;
-                }
-                navigate(`/search/${searchQuery}`);
+                setOpenSearch(false);
                 setSearchQuery("");
               }}
             />

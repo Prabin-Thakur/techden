@@ -12,7 +12,7 @@ const ShowCase: React.FC = () => {
               alt="audio"
             />
             <div className="button">
-              <Link className="link" to="/audio">
+              <Link className="link" to="/products/audio">
                 Audio
               </Link>
             </div>
@@ -23,7 +23,7 @@ const ShowCase: React.FC = () => {
               alt="pc"
             />
             <div className="button">
-              <Link to="/pc" className="link">
+              <Link to="/products/pc" className="link">
                 Pc
               </Link>
             </div>
@@ -35,7 +35,7 @@ const ShowCase: React.FC = () => {
             alt="smartphone"
           />
           <div className="button">
-            <Link to="/smartphone" className="link">
+            <Link to="/products/smartphone" className="link">
               Smartphone
             </Link>
           </div>
@@ -49,7 +49,7 @@ const ShowCase: React.FC = () => {
               alt="audio"
             />
             <div className="button">
-              <Link to="/audio" className="link">
+              <Link to="/products/audio" className="link">
                 Audio
               </Link>
             </div>
@@ -60,7 +60,7 @@ const ShowCase: React.FC = () => {
               alt="wearables"
             />
             <div className="button">
-              <Link to="/wearable" className="link">
+              <Link to="/products/wearable" className="link">
                 Wearable
               </Link>
             </div>
@@ -72,7 +72,7 @@ const ShowCase: React.FC = () => {
             alt="camera"
           />
           <div className="button">
-            <Link to="/camera" className="link">
+            <Link to="/products/camera" className="link">
               Camera
             </Link>
           </div>

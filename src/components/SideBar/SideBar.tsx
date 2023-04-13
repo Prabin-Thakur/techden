@@ -12,6 +12,9 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useStorage } from "../../context/localStorageContext";
 import { showCart } from "../../redux/cart/cartSlice";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import { Product } from "../../models/models";
 
 const SideBar: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +23,7 @@ const SideBar: React.FC = () => {
   const [rotate, setRotate] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { cartList } = useStorage();
+  const products: Product[] = useAppSelector((state) => state.products) || [];
 
   return (
     <Drawer
@@ -56,35 +60,56 @@ const SideBar: React.FC = () => {
             transition: rotate ? "transform 0.1s ease" : "none",
           }}
         />
+
         <div className="sideBar-search">
-          <input
-            maxLength={25}
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            type="text"
+          <Autocomplete
             className="search-field"
-            onKeyPress={(event) => {
-              if (event.key === "Enter") {
-                if (searchQuery.replace(/ /g, "").length === 0) {
-                  setSearchQuery("");
-                  return;
-                }
-                navigate(`/search/${searchQuery}`);
-                setSearchQuery("");
-              }
-            }}
-          />
-          <SearchRoundedIcon
-            className="icon"
-            onClick={() => {
-              if (searchQuery.replace(/ /g, "").length === 0) {
-                setSearchQuery("");
-                return;
-              }
-              navigate(`/search/${searchQuery}`);
-              setSearchQuery("");
-            }}
+            id="free-solo-demo"
+            freeSolo
+            options={products.map((option) => option.title)}
+            renderInput={(params) => (
+              <TextField
+                // autoFocus
+                value={searchQuery}
+                className="text-field"
+                placeholder="Search Products..."
+                {...params}
+                onChange={(e: any) => {
+                  setSearchQuery(e.target.value);
+                }}
+                onKeyPress={(event: any) => {
+                  if (event.key === "Enter") {
+                    if (searchQuery.replace(/ /g, "").length === 0) {
+                      setSearchQuery("");
+                      return;
+                    }
+                    dispatch(hideSideBar());
+                    navigate(`/search/${searchQuery}`);
+                    setSearchQuery("");
+                  }
+                }}
+                InputProps={{
+                  ...params.InputProps,
+                  // @ts-ignore
+                  maxLength: 25,
+                  endAdornment: (
+                    <div
+                      onClick={() => {
+                        if (searchQuery.replace(/ /g, "").length === 0) {
+                          setSearchQuery("");
+                          return;
+                        }
+                        dispatch(hideSideBar());
+                        navigate(`/search/${searchQuery}`);
+                        setSearchQuery("");
+                      }}
+                    >
+                      <SearchRoundedIcon className="icon" />
+                    </div>
+                  ),
+                }}
+              />
+            )}
           />
         </div>
         <div className="drawer_links_container">
@@ -96,7 +121,7 @@ const SideBar: React.FC = () => {
             }}
             onClick={() => {
               dispatch(hideSideBar());
-              navigate("/camera");
+              navigate("/products/camera");
             }}
           >
             Camera
@@ -109,7 +134,7 @@ const SideBar: React.FC = () => {
             }}
             onClick={() => {
               dispatch(hideSideBar());
-              navigate("/smartphone");
+              navigate("/products/smartphone");
             }}
           >
             Smartphone
@@ -122,7 +147,7 @@ const SideBar: React.FC = () => {
             }}
             onClick={() => {
               dispatch(hideSideBar());
-              navigate("/wearable");
+              navigate("/products/wearable");
             }}
           >
             Wearable
@@ -135,7 +160,7 @@ const SideBar: React.FC = () => {
             }}
             onClick={() => {
               dispatch(hideSideBar());
-              navigate("/audio");
+              navigate("/products/audio");
             }}
           >
             Audio
@@ -148,7 +173,7 @@ const SideBar: React.FC = () => {
             }}
             onClick={() => {
               dispatch(hideSideBar());
-              navigate("/pc");
+              navigate("/products/pc");
             }}
           >
             Pc

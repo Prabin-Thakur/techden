@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useStorage } from "../../context/localStorageContext";
+import RecommendationCard from "../../components/RecommendationCard/RecommendationCard";
 
 const Product: React.FC = () => {
   const id = useParams().id;
@@ -34,127 +35,137 @@ const Product: React.FC = () => {
   }, [existingIndex]);
 
   return (
-    <div className="product-container">
-      {Object.keys(product).length === 0 ? (
-        <div
-          style={{
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress />
-        </div>
-      ) : (
-        <>
-          {" "}
-          <div className="product-left">
-            <div className="small-image">
-              <div className="images">
-                <img
-                  src={product.img1}
-                  alt="image1"
-                  onClick={() => setSelectedImg("img1")}
-                />
-              </div>
-              <div className="images">
-                <img
-                  src={product.img2}
-                  alt="image2"
-                  onClick={() => setSelectedImg("img2")}
-                />
-              </div>
-              {product?.img3 && (
+    <>
+      <div className="product-container">
+        {Object.keys(product).length === 0 ? (
+          <div
+            style={{
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+          </div>
+        ) : (
+          <>
+            {" "}
+            <div className="product-left">
+              <div className="small-image">
                 <div className="images">
                   <img
-                    src={product.img3}
-                    alt="image3"
-                    onClick={() => setSelectedImg("img3")}
+                    src={product.img1}
+                    alt="image1"
+                    onClick={() => setSelectedImg("img1")}
                   />
                 </div>
-              )}
-              {product?.img4 && (
                 <div className="images">
                   <img
-                    src={product.img4}
-                    alt="image4"
-                    onClick={() => setSelectedImg("img4")}
+                    src={product.img2}
+                    alt="image2"
+                    onClick={() => setSelectedImg("img2")}
                   />
                 </div>
-              )}
-            </div>
-            <div className="large-image">
-              <div className="large-image-image">
-                <img src={product[selectedImg]} alt="image-showcase" />
+                {product?.img3 && (
+                  <div className="images">
+                    <img
+                      src={product.img3}
+                      alt="image3"
+                      onClick={() => setSelectedImg("img3")}
+                    />
+                  </div>
+                )}
+                {product?.img4 && (
+                  <div className="images">
+                    <img
+                      src={product.img4}
+                      alt="image4"
+                      onClick={() => setSelectedImg("img4")}
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="large-image">
+                <div className="large-image-image">
+                  <img src={product[selectedImg]} alt="image-showcase" />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="product-right">
-            <div className="title">{product?.title}</div>
-            <span className="price">
-              ${product?.price}{" "}
-              {product?.oldPrice && <p>${product?.oldPrice}</p>}
-            </span>
-            <p className="description">{product?.description}</p>
-            <div className="quantity">
+            <div className="product-right">
+              <div className="title">{product?.title}</div>
+              <span className="price">
+                ${product?.price.toLocaleString("en-US")}{" "}
+                {product?.oldPrice && (
+                  <p>${product?.oldPrice.toLocaleString("en-US")}</p>
+                )}
+              </span>
+              <p className="description">{product?.description}</p>
+              <div className="quantity">
+                <button
+                  onClick={() =>
+                    setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
+                  }
+                >
+                  -
+                </button>
+                <span>{quantity}</span>
+                <button
+                  onClick={() =>
+                    setQuantity((prev) => (prev === 10 ? 10 : prev + 1))
+                  }
+                >
+                  +
+                </button>
+              </div>
               <button
-                onClick={() =>
-                  setQuantity((prev) => (prev === 1 ? 1 : prev - 1))
-                }
+                disabled={disableCart}
+                className="add"
+                onClick={() => {
+                  if (!disableCart) {
+                    addCartList(product.id, quantity);
+                  }
+                }}
+                style={{
+                  backgroundColor: disableCart ? "#8eb9ff" : "",
+                  cursor: disableCart ? "not-allowed" : "",
+                  border: disableCart ? "none" : "",
+                }}
               >
-                -
+                <AddShoppingCartIcon /> ADD TO CART
               </button>
-              <span>{quantity}</span>
-              <button
-                onClick={() =>
-                  setQuantity((prev) => (prev === 10 ? 10 : prev + 1))
-                }
+              <div
+                className="links"
+                onClick={() => {
+                  addWishList(product.id);
+                }}
               >
-                +
-              </button>
-            </div>
-            <button
-              disabled={disableCart}
-              className="add"
-              onClick={() => {
-                if (!disableCart) {
-                  addCartList(product.id, quantity);
-                }
-              }}
-              style={{
-                backgroundColor: disableCart ? "#8eb9ff" : "",
-                cursor: disableCart ? "not-allowed" : "",
-                border: disableCart ? "none" : "",
-              }}
-            >
-              <AddShoppingCartIcon /> ADD TO CART
-            </button>
-            <div
-              className="links"
-              onClick={() => {
-                addWishList(product.id);
-              }}
-            >
-              <FavoriteBorderIcon /> ADD TO WISH LIST
-            </div>
-            <div className="info">
-              <span>Vendor: {product?.title?.split(" ")[0]}</span>
-              <span>Product Type: {product.type}</span>
-              <span>Tag: {product.type}</span>
-            </div>
-            <hr />
-            <div className="info">
-              <span>DESCRIPTION</span>
+                <FavoriteBorderIcon /> ADD TO WISH LIST
+              </div>
+              <div className="info">
+                <span>Vendor: {product?.title?.split(" ")[0]}</span>
+                <span>Product Type: {product.type}</span>
+                <span>Tag: {product.type}</span>
+              </div>
               <hr />
-              <span>ADDITIONAL INFORMATION</span>
-              <hr />
-              <span>FAQ</span>
+              <div className="info">
+                <span>DESCRIPTION</span>
+                <hr />
+                <span>ADDITIONAL INFORMATION</span>
+                <hr />
+                <span>FAQ</span>
+              </div>
             </div>
-          </div>
-        </>
+          </>
+        )}
+      </div>
+      {Object.keys(product).length !== 0 && (
+        <RecommendationCard
+          category={product?.type.toLowerCase()}
+          currentProduct={product?.id}
+        />
       )}
-    </div>
+    </>
   );
 };
 

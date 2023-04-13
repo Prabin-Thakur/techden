@@ -16,9 +16,12 @@ const SearchedProducts: React.FC = () => {
   }, [products, query]);
 
   return (
-    <div className="searched-container">
+    <div className="searched-products-container">
       {filteredProducts && (
-        <div className="items-found">
+        <div
+          className="items-found"
+          style={{ height: `${filteredProducts.length === 0 ? "80vh" : ""}` }}
+        >
           "{filteredProducts.length === 0 ? "No" : filteredProducts.length}{" "}
           items found"
         </div>

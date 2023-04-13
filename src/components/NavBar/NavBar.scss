@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 140rem;
   margin: 0 auto;
-  height: 4rem;
+  height: 4.3rem;
   position: relative;
 
   .navbar-wrapper {
@@ -48,21 +48,34 @@
     }
 
     .navbar-search {
-      width: 20rem;
+      width: 25rem;
       min-width: 15rem;
-      height: 3rem;
-      margin-right: 5%;
       position: relative;
-      -webkit-animation: slide-in-right 0.2s ease-in-out both;
-      animation: slide-in-right 0.2s ease-in-out both;
+      -webkit-animation: slide-in-right 0s ease-in-out both;
+      animation: slide-in-right 0s ease-in-out both;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
 
       .search-field {
-        width: 100%;
-        height: 100%;
-        padding-left: 10px;
-        padding-right: 2.5rem;
-        font-size: 1.1rem;
+        width: 20rem;
       }
+
+      .close {
+        width: 2.5rem;
+        height: 2.5rem;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover {
+          cursor: pointer;
+          color: rgb(86, 86, 86);
+        }
+      }
+
       .icon {
         width: 2rem;
         color: #6c6b6b;
