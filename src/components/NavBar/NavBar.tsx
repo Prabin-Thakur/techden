@@ -57,20 +57,68 @@ const NavBar: React.FC = () => {
           TECH<span>DEN</span>
         </div>
         <div className="navbar-links">
-          <Link className="links" to="/products/smartphone">
+          <Link
+            className="links"
+            to="/products/smartphone"
+            style={{
+              borderBottom: `${
+                window.location.pathname.includes("smartphone")
+                  ? "3px solid red"
+                  : ""
+              }`,
+            }}
+          >
             Smartphone
           </Link>
-          <Link className="links" to="/products/camera">
+          <Link
+            className="links"
+            to="/products/camera"
+            style={{
+              borderBottom: `${
+                window.location.pathname.includes("camera")
+                  ? "3px solid red"
+                  : ""
+              }`,
+            }}
+          >
             Camera
           </Link>
-          <Link className="links" to="/products/audio">
+          <Link
+            className="links"
+            to="/products/audio"
+            style={{
+              borderBottom: `${
+                window.location.pathname.includes("audio")
+                  ? "3px solid red"
+                  : ""
+              }`,
+            }}
+          >
             Audio
           </Link>
 
-          <Link className="links" to="/products/wearable">
+          <Link
+            className="links"
+            to="/products/wearable"
+            style={{
+              borderBottom: `${
+                window.location.pathname.includes("wearable")
+                  ? "3px solid red"
+                  : ""
+              }`,
+            }}
+          >
             Wearables
           </Link>
-          <Link className="links" to="/products/pc">
+          <Link
+            className="links"
+            to="/products/pc"
+            style={{
+              borderBottom: `${
+                window.location.pathname.includes("pc") ? "3px solid red" : ""
+              }`,
+            }}
+          >
             Pc
           </Link>
         </div>

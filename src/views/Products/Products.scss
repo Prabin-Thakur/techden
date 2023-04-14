@@ -9,21 +9,22 @@
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 
-.skeleton_container {
-  padding: 1rem;
+.products-filter {
+  width: 100%;
+  height: fit-content;
+  padding: 2rem 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1rem;
 }
 
-.skeleton {
-  text-align: center;
-  padding-top: 174px;
+.progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
 }
