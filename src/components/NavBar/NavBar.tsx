@@ -50,6 +50,16 @@ const NavBar: React.FC = () => {
   //   };
   // }, [searchRef]);
 
+  const handleSearch = () => {
+    if (searchQuery.replace(/ /g, "").length === 0) {
+      setSearchQuery("");
+      return;
+    }
+    navigate(`/search/${searchQuery}`);
+    setSearchQuery("");
+    setOpenSearch(false);
+  };
+
   return (
     <div className="navbar-container">
       <div className="navbar-wrapper">
@@ -128,27 +138,21 @@ const NavBar: React.FC = () => {
             <Autocomplete
               className="search-field"
               id="free-solo-demo"
+              value={searchQuery}
+              onInputChange={(event, newInputValue) => {
+                setSearchQuery(newInputValue);
+              }}
               freeSolo
               options={products.map((option) => option.title)}
               renderInput={(params) => (
                 <TextField
                   autoFocus
-                  value={searchQuery}
                   className="text-field"
                   placeholder="Search Products..."
                   {...params}
-                  onChange={(e) => {
-                    setSearchQuery(e.target.value);
-                  }}
                   onKeyPress={(event) => {
                     if (event.key === "Enter") {
-                      if (searchQuery.replace(/ /g, "").length === 0) {
-                        setSearchQuery("");
-                        return;
-                      }
-                      navigate(`/search/${searchQuery}`);
-                      setSearchQuery("");
-                      setOpenSearch(false);
+                      handleSearch();
                     }
                   }}
                   InputProps={{
@@ -158,13 +162,7 @@ const NavBar: React.FC = () => {
                     endAdornment: (
                       <div
                         onClick={() => {
-                          if (searchQuery.replace(/ /g, "").length === 0) {
-                            setSearchQuery("");
-                            return;
-                          }
-                          navigate(`/search/${searchQuery}`);
-                          setSearchQuery("");
-                          setOpenSearch(false);
+                          handleSearch();
                         }}
                       >
                         <SearchRoundedIcon className="icon" />

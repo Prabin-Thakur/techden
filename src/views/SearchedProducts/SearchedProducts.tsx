@@ -22,8 +22,8 @@ const SearchedProducts: React.FC = () => {
           className="items-found"
           style={{ height: `${filteredProducts.length === 0 ? "80vh" : ""}` }}
         >
-          "{filteredProducts.length === 0 ? "No" : filteredProducts.length}{" "}
-          items found"
+          " {filteredProducts.length === 0 ? " No" : filteredProducts.length}{" "}
+          item found "
         </div>
       )}
       <div className="items">

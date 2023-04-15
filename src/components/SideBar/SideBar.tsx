@@ -25,6 +25,15 @@ const SideBar: React.FC = () => {
   const { cartList } = useStorage();
   const products: Product[] = useAppSelector((state) => state.products) || [];
 
+  const handleSearch = () => {
+    if (searchQuery.replace(/ /g, "").length === 0) {
+      setSearchQuery("");
+      return;
+    }
+    navigate(`/search/${searchQuery}`);
+    setSearchQuery("");
+  };
+
   return (
     <Drawer
       className="sideBar_container"
@@ -66,26 +75,20 @@ const SideBar: React.FC = () => {
             className="search-field"
             id="free-solo-demo"
             freeSolo
+            value={searchQuery}
+            onInputChange={(event, newInputValue) => {
+              setSearchQuery(newInputValue);
+            }}
             options={products.map((option) => option.title)}
             renderInput={(params) => (
               <TextField
                 // autoFocus
-                value={searchQuery}
                 className="text-field"
                 placeholder="Search Products..."
                 {...params}
-                onChange={(e: any) => {
-                  setSearchQuery(e.target.value);
-                }}
                 onKeyPress={(event: any) => {
                   if (event.key === "Enter") {
-                    if (searchQuery.replace(/ /g, "").length === 0) {
-                      setSearchQuery("");
-                      return;
-                    }
-                    dispatch(hideSideBar());
-                    navigate(`/search/${searchQuery}`);
-                    setSearchQuery("");
+                    handleSearch();
                   }
                 }}
                 InputProps={{
@@ -95,13 +98,7 @@ const SideBar: React.FC = () => {
                   endAdornment: (
                     <div
                       onClick={() => {
-                        if (searchQuery.replace(/ /g, "").length === 0) {
-                          setSearchQuery("");
-                          return;
-                        }
-                        dispatch(hideSideBar());
-                        navigate(`/search/${searchQuery}`);
-                        setSearchQuery("");
+                        handleSearch();
                       }}
                     >
                       <SearchRoundedIcon className="icon" />
