@@ -11,12 +11,14 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { Theme, useTheme } from "@mui/material/styles";
-import CancelIcon from "@mui/icons-material/Cancel";
 import CircularProgress from "@mui/material/CircularProgress";
+import Pagination from "@mui/material/Pagination";
+import { scrollToTop } from "../../utils";
 
 const Products: React.FC = () => {
   const products: Product[] = useAppSelector((state) => state.products) || [];
-
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
   const {
     category,
     categoryName,
@@ -33,6 +35,10 @@ const Products: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0); // scrolls to the top of the page
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [categoryName, sortBy]);
 
   const filteredProducts = useMemo(() => {
     if (products.length === 0) {
@@ -78,76 +84,112 @@ const Products: React.FC = () => {
     }
   }, [categoryName, sortBy, products]);
 
-  return (
-    <div className="products-container">
-      <div className="products-filter">
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-chip-label">Filter Products</InputLabel>
-          <Select
-            labelId="demo-multiple-chip-label"
-            id="demo-multiple-chip"
-            multiple
-            value={categoryName}
-            onChange={handleChange}
-            input={
-              <OutlinedInput id="select-multiple-chip" label="Filter Product" />
-            }
-            renderValue={(selected) => (
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.6 }}>
-                {selected.map((value) => (
-                  <Chip
-                    key={value}
-                    label={value}
-                    // onDelete={(event) => {
-                    //   event.stopPropagation();
-                    //   setCategoryName((prev) =>
-                    //     prev.filter((name) => name !== value)
-                    //   );
-                    // }}
-                    // deleteIcon={<CancelIcon />}
-                  />
-                ))}
-              </Box>
-            )}
-            MenuProps={MenuProps}
-          >
-            {category.map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={getStyles(name, categoryName, theme)}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1, minWidth: 200 }}>
-          <InputLabel id="demo-simple-select-helper-label">Sort by</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={sortBy}
-            label="Sort by"
-            onChange={handleChangeSort}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value="Lowest">Price(Lowest first)</MenuItem>
-            <MenuItem value="Highest">Price(Highest first)</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
+  const itemsForCurrentPage = useMemo(() => {
+    return filteredProducts?.slice(indexOfFirstItem, indexOfLastItem);
+  }, [products, filteredProducts, currentPage]);
 
-      {filteredProducts?.length !== 0 ? (
-        filteredProducts?.map((el: Product) => <Card item={el} key={el.id} />)
-      ) : (
-        <div className="progress">
-          <CircularProgress />
+  return (
+    <>
+      <div className="products-container">
+        <div className="products-filter">
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="demo-multiple-chip-label">
+              Filter Products
+            </InputLabel>
+            <Select
+              labelId="demo-multiple-chip-label"
+              id="demo-multiple-chip"
+              multiple
+              value={categoryName}
+              onChange={handleChange}
+              input={
+                <OutlinedInput
+                  id="select-multiple-chip"
+                  label="Filter Product"
+                />
+              }
+              renderValue={(selected) => (
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.6 }}>
+                  {selected.map((value) => (
+                    <Chip
+                      key={value}
+                      label={value}
+                      // onDelete={(event) => {
+                      //   event.stopPropagation();
+                      //   setCategoryName((prev) =>
+                      //     prev.filter((name) => name !== value)
+                      //   );
+                      // }}
+                      // deleteIcon={<CancelIcon />}
+                    />
+                  ))}
+                </Box>
+              )}
+              MenuProps={MenuProps}
+            >
+              {category.map((name) => (
+                <MenuItem
+                  key={name}
+                  value={name}
+                  style={getStyles(name, categoryName, theme)}
+                >
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ m: 1, minWidth: 200 }}>
+            <InputLabel id="demo-simple-select-helper-label">
+              Sort by
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-helper-label"
+              id="demo-simple-select-helper"
+              value={sortBy}
+              label="Sort by"
+              onChange={handleChangeSort}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value="Lowest">Price(Lowest first)</MenuItem>
+              <MenuItem value="Highest">Price(Highest first)</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+        {filteredProducts?.length !== 0 ? (
+          itemsForCurrentPage?.map((el: Product) => (
+            <Card item={el} key={el.id} />
+          ))
+        ) : (
+          <div className="progress">
+            <CircularProgress />
+          </div>
+        )}
+      </div>
+      {filteredProducts && filteredProducts.length > 10 && (
+        <div className="pagination">
+          <Pagination
+            shape="rounded"
+            variant="outlined"
+            sx={{
+              "& .MuiPaginationItem-root": {
+                fontSize: "1.1rem",
+              },
+            }}
+            count={Math.ceil(filteredProducts?.length / itemsPerPage)}
+            onChange={(event, page) => {
+              setCurrentPage(page);
+              scrollToTop();
+            }}
+            page={currentPage}
+          />
         </div>
       )}
-    </div>
+    </>
   );
 };
 
