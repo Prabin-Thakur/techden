@@ -29,8 +29,8 @@ const RecommendationCard: React.FC<{
       <div className="title">You might also like</div>
       <div className="items">
         {filteredProducts.map((el: Product) => (
-          <div onClick={scrollToTop}>
-            <Card item={el} key={el.id} />
+          <div key={el.id} onClick={scrollToTop}>
+            <Card item={el} />
           </div>
         ))}
       </div>

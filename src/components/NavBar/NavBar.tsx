@@ -14,6 +14,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { Product } from "../../models/models";
 import { useAppSelector } from "../../redux/hooks";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import Slide from "@mui/material/Slide";
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
@@ -134,52 +135,54 @@ const NavBar: React.FC = () => {
         </div>
 
         {openSearch ? (
-          <div className="navbar-search">
-            <Autocomplete
-              className="search-field"
-              id="free-solo-demo"
-              value={searchQuery}
-              onInputChange={(event, newInputValue) => {
-                setSearchQuery(newInputValue);
-              }}
-              freeSolo
-              options={products.map((option) => option.title)}
-              renderInput={(params) => (
-                <TextField
-                  autoFocus
-                  className="text-field"
-                  placeholder="Search Products..."
-                  {...params}
-                  onKeyPress={(event) => {
-                    if (event.key === "Enter") {
-                      handleSearch();
-                    }
-                  }}
-                  InputProps={{
-                    ...params.InputProps,
-                    // @ts-ignore
-                    maxLength: 25,
-                    endAdornment: (
-                      <div
-                        onClick={() => {
-                          handleSearch();
-                        }}
-                      >
-                        <SearchRoundedIcon className="icon" />
-                      </div>
-                    ),
-                  }}
-                />
-              )}
-            />
-            <CloseRoundedIcon
-              className="close"
-              onClick={() => {
-                setOpenSearch(false);
-                setSearchQuery("");
-              }}
-            />
-          </div>
+          <Slide direction="left" in={openSearch} mountOnEnter unmountOnExit>
+            <div className="navbar-search">
+              <Autocomplete
+                className="search-field"
+                id="free-solo-demo"
+                value={searchQuery}
+                onInputChange={(event, newInputValue) => {
+                  setSearchQuery(newInputValue);
+                }}
+                freeSolo
+                options={products.map((option) => option.title)}
+                renderInput={(params) => (
+                  <TextField
+                    autoFocus
+                    className="text-field"
+                    placeholder="Search Products..."
+                    {...params}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        handleSearch();
+                      }
+                    }}
+                    InputProps={{
+                      ...params.InputProps,
+                      // @ts-ignore
+                      maxLength: 25,
+                      endAdornment: (
+                        <div
+                          onClick={() => {
+                            handleSearch();
+                          }}
+                        >
+                          <SearchRoundedIcon className="icon" />
+                        </div>
+                      ),
+                    }}
+                  />
+                )}
+              />
+              <CloseRoundedIcon
+                className="close"
+                onClick={() => {
+                  setOpenSearch(false);
+                  setSearchQuery("");
+                }}
+              />
+            </div>
+          </Slide>
         ) : (
           <div className="navbar-icons">
             <SearchRoundedIcon

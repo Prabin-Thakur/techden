@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import "./Products.scss";
 import { useAppSelector } from "../../redux/hooks";
 import { Product } from "../../models/models";
@@ -14,11 +14,13 @@ import { Theme, useTheme } from "@mui/material/styles";
 import CircularProgress from "@mui/material/CircularProgress";
 import Pagination from "@mui/material/Pagination";
 import { scrollToTop } from "../../utils";
+import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
 
 const Products: React.FC = () => {
   const products: Product[] = useAppSelector((state) => state.products) || [];
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
+  const filterProductRef = useRef<any>(null);
   const {
     category,
     categoryName,
@@ -94,7 +96,7 @@ const Products: React.FC = () => {
     <>
       <div className="products-container">
         <div className="products-filter">
-          <FormControl sx={{ m: 1, width: 300 }}>
+          <FormControl sx={{ m: 1, width: 300 }} ref={filterProductRef}>
             <InputLabel id="demo-multiple-chip-label">
               Filter Products
             </InputLabel>
@@ -116,13 +118,18 @@ const Products: React.FC = () => {
                     <Chip
                       key={value}
                       label={value}
-                      // onDelete={(event) => {
-                      //   event.stopPropagation();
-                      //   setCategoryName((prev) =>
-                      //     prev.filter((name) => name !== value)
-                      //   );
-                      // }}
-                      // deleteIcon={<CancelIcon />}
+                      clickable
+                      onDelete={(event) => {
+                        setCategoryName((prev) =>
+                          prev.filter((name) => name !== value)
+                        );
+                        filterProductRef.current.blur();
+                      }}
+                      deleteIcon={
+                        <CancelRoundedIcon
+                          onMouseDown={(e) => e.stopPropagation()}
+                        />
+                      }
                     />
                   ))}
                 </Box>
@@ -160,7 +167,7 @@ const Products: React.FC = () => {
           </FormControl>
         </div>
 
-        {filteredProducts?.length !== 0 ? (
+        {itemsForCurrentPage?.length !== 0 ? (
           itemsForCurrentPage?.map((el: Product) => (
             <Card item={el} key={el.id} />
           ))
