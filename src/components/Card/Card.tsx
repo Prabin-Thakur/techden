@@ -25,8 +25,9 @@ const Card: React.FC<{ item: Product }> = ({ item }) => {
           <DeleteOutlinedIcon className="delete" onClick={removeFromWishList} />
         </div>
       )}
+      {item?.new && <div className="new">New</div>}
+
       <div className="image">
-        {item?.new && <span>New</span>}
         <img src={item?.img1} alt="" className="mainImg" />
         <img src={item?.img2} alt="" className="secondImg" />
       </div>

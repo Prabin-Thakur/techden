@@ -55,6 +55,7 @@
       justify-content: center;
       width: 70%;
       height: 100%;
+      padding: 1rem;
       .large-image-image {
         max-width: 24rem;
         max-height: 24rem;
@@ -67,6 +68,7 @@
           width: 100%;
           height: 100%;
           object-fit: contain;
+          object-position: center;
         }
       }
     }
@@ -207,11 +209,18 @@
 
       .small-image {
         width: 100%;
-        justify-content: center;
         order: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         flex-direction: row;
         gap: 10px;
         flex-wrap: wrap;
+
+        .images {
+          width: 80px;
+          height: 80px;
+        }
       }
 
       .large-image {

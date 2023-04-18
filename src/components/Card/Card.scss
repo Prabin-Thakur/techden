@@ -2,7 +2,7 @@
   width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: space-around;
   margin-bottom: 30px;
   margin-left: 10px;
   margin-right: 10px;
@@ -10,16 +10,30 @@
   border-radius: 1px;
   padding-top: 8px;
   position: relative;
+  min-height: 220px;
 
   &:hover {
     cursor: pointer;
   }
 
+  .new {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: red;
+    background-color: white;
+    mix-blend-mode: darken;
+    padding: 4px 10px;
+    z-index: 3;
+    font-weight: 500;
+    font-size: 12px;
+  }
+
   .remove-favourite {
     position: absolute;
     right: 5px;
-    bottom: 0px;
     color: red;
+    bottom: 0px;
     font-size: 30px;
     cursor: pointer;
     transition: transform 0.1s ease-in-out;
@@ -61,36 +75,28 @@
     .secondImg {
       visibility: hidden;
     }
-
-    span {
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      background-color: white;
-      color: red;
-      padding: 4px 10px;
-      z-index: 3;
-      font-weight: 500;
-      font-size: 12px;
-    }
   }
 
   h2 {
     font-size: 1.2rem;
-    padding-top: 10px;
+    margin-top: 5px;
     font-weight: 400;
     text-decoration: none !important;
-    padding-left: 10px;
+    padding: 0px 10px;
+    text-align: center;
   }
 
   .prices {
     display: flex;
     gap: 20px;
-    padding-left: 10px;
-    padding-bottom: 10px;
+    padding: 0px 10px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
 
     h3 {
-      font-size: 16px;
+      font-size: 16px !important;
       font-weight: 500;
       &:nth-child(2) {
         color: gray;
@@ -191,6 +197,12 @@
 
     .image {
       height: 120px;
+    }
+
+    .prices {
+      h3 {
+        font-size: 13px !important;
+      }
     }
   }
 }
