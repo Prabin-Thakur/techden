@@ -18,6 +18,8 @@ import { LocalStorageProvider } from "./context/localStorageContext";
 import Favourites from "./components/Favourites/Favourites";
 import SearchedProducts from "./views/SearchedProducts/SearchedProducts";
 import Category from "./views/Category/Category";
+import LoginPage from "./views/LoginPage/LoginPage";
+import { Navigate } from "react-router-dom";
 
 const RootLayout = () => {
   const cart: boolean = useAppSelector((state) => state.cart) || false;
@@ -46,6 +48,38 @@ const router = createBrowserRouter(
       <Route path="/products/:category" element={<Category />} />
       <Route path="/product/:id" element={<Product />} />
       <Route path="/search/:query" element={<SearchedProducts />} />
+      <Route
+        path="/login"
+        element={
+          localStorage.getItem("isLoggedIn") === "true" ? (
+            <Navigate to="/" />
+          ) : (
+            <LoginPage
+              bigText="Log in to Account"
+              buttonText="Log In"
+              googlebuttonText="Log in with"
+              linkBeforeText="Don't have an account ?"
+              linkText="Sign Up"
+            />
+          )
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          localStorage.getItem("isLoggedIn") === "true" ? (
+            <Navigate to="/" />
+          ) : (
+            <LoginPage
+              bigText="Sign in to Account"
+              buttonText="Create Account"
+              googlebuttonText="Sign up with"
+              linkBeforeText="Have an account ?"
+              linkText="Log In"
+            />
+          )
+        }
+      />
       <Route path="*" element={<Missing />} />
     </Route>
   )

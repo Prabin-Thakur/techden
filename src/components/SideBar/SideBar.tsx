@@ -15,6 +15,11 @@ import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Product } from "../../models/models";
+import Tooltip from "@mui/material/Tooltip";
+import Fade from "@mui/material/Fade";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import PersonRemoveRoundedIcon from "@mui/icons-material/PersonRemoveRounded";
+import useAuth from "../../customHooks/useAuth";
 
 const SideBar: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +29,12 @@ const SideBar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { cartList } = useStorage();
   const products: Product[] = useAppSelector((state) => state.products) || [];
+  const [openUserDetails, setOpenUserDetails] = useState<boolean>(false);
+  const { handleLogout } = useAuth();
+
+  const handleToggle = () => {
+    setOpenUserDetails((prevIsOpen) => !prevIsOpen);
+  };
 
   const handleSearch = () => {
     if (searchQuery.replace(/ /g, "").length === 0) {
@@ -177,7 +188,42 @@ const SideBar: React.FC = () => {
           </div>
         </div>
         <div className="sidebar-icons">
-          <PersonOutlineOutlinedIcon className="icons" />
+          {localStorage.getItem("isLoggedIn") === "true" ? (
+            <Tooltip
+              title={
+                <div className="login-tooltip">
+                  <div className="tooltip-button" onClick={handleLogout}>
+                    Log out&nbsp; <LogoutRoundedIcon className="icon" />
+                  </div>
+                  {/* <div className="tooltip-button" onClick={deleteUserAccount}>
+                      Delete Account&nbsp;{" "}
+                      <PersonRemoveRoundedIcon className="icon" />
+                    </div> */}
+                </div>
+              }
+              open={openUserDetails}
+              onClose={() => setOpenUserDetails(false)}
+              onOpen={() => setOpenUserDetails(true)}
+              TransitionComponent={Fade}
+              placement="bottom"
+              arrow
+            >
+              <PersonOutlineOutlinedIcon
+                className="icons"
+                onClick={() => {
+                  handleToggle();
+                }}
+              />
+            </Tooltip>
+          ) : (
+            <PersonOutlineOutlinedIcon
+              className="icons"
+              onClick={() => {
+                navigate("/login");
+                handleToggle();
+              }}
+            />
+          )}
           <FavoriteBorderOutlinedIcon
             className="icons"
             onClick={() => {

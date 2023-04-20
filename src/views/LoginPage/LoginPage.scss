@@ -1,0 +1,277 @@
+@import "../../styles/variables.scss";
+
+.login_page_container {
+  background: $SECONDARY;
+  width: 100%;
+  height: calc(100vh - 4.3rem);
+  max-width: 130rem;
+  margin: 0 auto;
+  overflow: hidden;
+  color: $PRIMARY;
+  position: relative;
+  background-blend-mode: color;
+}
+
+.login_page_line {
+  background: $PRIMARY;
+  width: 5rem;
+  height: 5px;
+  border-radius: 5px;
+  margin-bottom: 3rem;
+  -webkit-animation: bounce-in-top 1s ease-in-out both;
+  animation: bounce-in-top 1s ease-in-out both;
+}
+
+.login_page_big_text {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  -webkit-animation: bounce-in-top 0.9s ease-in-out both;
+  animation: bounce-in-top 0.9s ease-in-out both;
+}
+
+@media screen and (max-width: 600px) {
+  .login_page_big_text {
+    font-size: 3rem;
+    letter-spacing: 2px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .login_page_big_text {
+    font-size: 4rem;
+    letter-spacing: 5px;
+  }
+}
+
+.progress_button {
+  width: 11rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.login_page_button {
+  width: 12.2rem;
+  height: 4rem;
+  background: $PRIMARY;
+  border: none;
+  color: $SECONDARY;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+  transition: all 0.1s ease-in-out;
+  text-transform: uppercase;
+  &:hover {
+    color: $PRIMARY;
+    background-color: $SECONDARY;
+    cursor: pointer;
+    border: 2px solid $PRIMARY;
+  }
+  &:focus {
+    outline-color: transparent;
+  }
+}
+
+.login_page_policy {
+  position: absolute;
+  bottom: 0.5rem;
+  font-weight: 500;
+  color: #9d9b9b;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.login_page_redirecting {
+  color: rgb(70, 70, 70);
+  font-size: 1rem;
+  text-align: center;
+  font-weight: light;
+
+  span {
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+    color: $PRIMARY;
+  }
+
+  span:hover {
+    color: rgb(125, 125, 125);
+  }
+}
+
+.login_page_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login_page_password {
+  position: relative;
+  .login_page_password_icon {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    cursor: pointer;
+    color: #9d9b9b;
+  }
+}
+
+.signin_google_icon_button {
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 12.2rem;
+  height: 4rem;
+  background-color: #fff;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  border: 2px solid $PRIMARY;
+  color: $PRIMARY;
+  letter-spacing: 1px;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    background-color: whitesmoke;
+    color: black;
+    cursor: pointer;
+  }
+  &:focus {
+    outline-color: transparent;
+  }
+}
+
+@media (max-width: 400px) {
+  .signin_google_icon_button {
+    font-weight: 600;
+    width: 11rem;
+    height: 3.4rem;
+    font-size: 1rem;
+  }
+  .login_page_button {
+    font-weight: 600;
+    width: 11rem;
+    height: 3.4rem;
+    font-size: 1rem;
+  }
+}
+
+.google_icon {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+    transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+    transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+    transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}
+@keyframes bounce-in-top {
+  0% {
+    -webkit-transform: translateY(-500px);
+    transform: translateY(-500px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  38% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+  55% {
+    -webkit-transform: translateY(-65px);
+    transform: translateY(-65px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  72% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  81% {
+    -webkit-transform: translateY(-28px);
+    transform: translateY(-28px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  90% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  95% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}

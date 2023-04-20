@@ -20,7 +20,7 @@ const Products: React.FC = () => {
   const products: Product[] = useAppSelector((state) => state.products) || [];
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
-  const filterProductRef = useRef<any>(null);
+  const inputFilterRef = useRef<any>(null);
   const {
     category,
     categoryName,
@@ -96,7 +96,7 @@ const Products: React.FC = () => {
     <>
       <div className="products-container">
         <div className="products-filter">
-          <FormControl sx={{ m: 1, width: 300 }} ref={filterProductRef}>
+          <FormControl sx={{ m: 1, width: 300 }}>
             <InputLabel id="demo-multiple-chip-label">
               Filter Products
             </InputLabel>
@@ -110,6 +110,7 @@ const Products: React.FC = () => {
                 <OutlinedInput
                   id="select-multiple-chip"
                   label="Filter Product"
+                  inputRef={inputFilterRef}
                 />
               }
               renderValue={(selected) => (
@@ -123,7 +124,7 @@ const Products: React.FC = () => {
                         setCategoryName((prev) =>
                           prev.filter((name) => name !== value)
                         );
-                        filterProductRef.current.blur();
+                        inputFilterRef.current.blur();
                       }}
                       deleteIcon={
                         <CancelRoundedIcon

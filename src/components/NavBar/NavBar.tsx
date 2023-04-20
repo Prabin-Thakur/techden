@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import "./NavBar.scss";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -15,6 +15,11 @@ import { Product } from "../../models/models";
 import { useAppSelector } from "../../redux/hooks";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import Slide from "@mui/material/Slide";
+import Tooltip from "@mui/material/Tooltip";
+import Fade from "@mui/material/Fade";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import PersonRemoveRoundedIcon from "@mui/icons-material/PersonRemoveRounded";
+import useAuth from "../../customHooks/useAuth";
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
@@ -23,6 +28,9 @@ const NavBar: React.FC = () => {
   const { cartList } = useStorage();
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [openUserDetails, setOpenUserDetails] = useState<boolean>(false);
+  const { handleLogout } = useAuth();
+
   // const searchRef = useRef<HTMLDivElement>(null);
   // const searchInputRef = useRef<any>(null);
   // const autoCompleteRef = useRef<any>(null);
@@ -50,6 +58,10 @@ const NavBar: React.FC = () => {
   //     document.removeEventListener("mousedown", handler);
   //   };
   // }, [searchRef]);
+
+  const handleToggle = () => {
+    setOpenUserDetails((prevIsOpen) => !prevIsOpen);
+  };
 
   const handleSearch = () => {
     if (searchQuery.replace(/ /g, "").length === 0) {
@@ -191,7 +203,43 @@ const NavBar: React.FC = () => {
                 setOpenSearch(true);
               }}
             />
-            <PersonOutlineOutlinedIcon className="icons" />
+
+            {localStorage.getItem("isLoggedIn") === "true" ? (
+              <Tooltip
+                title={
+                  <div className="login-tooltip">
+                    <div className="tooltip-button" onClick={handleLogout}>
+                      Log out&nbsp; <LogoutRoundedIcon className="icon" />
+                    </div>
+                    {/* <div className="tooltip-button" onClick={deleteUserAccount}>
+                      Delete Account&nbsp;{" "}
+                      <PersonRemoveRoundedIcon className="icon" />
+                    </div> */}
+                  </div>
+                }
+                open={openUserDetails}
+                onClose={() => setOpenUserDetails(false)}
+                onOpen={() => setOpenUserDetails(true)}
+                TransitionComponent={Fade}
+                placement="bottom"
+                arrow
+              >
+                <PersonOutlineOutlinedIcon
+                  className="icons"
+                  onClick={() => {
+                    handleToggle();
+                  }}
+                />
+              </Tooltip>
+            ) : (
+              <PersonOutlineOutlinedIcon
+                className="icons"
+                onClick={() => {
+                  navigate("/login");
+                  handleToggle();
+                }}
+              />
+            )}
             <FavoriteBorderOutlinedIcon
               className="icons"
               onClick={() => navigate("/favourites")}
