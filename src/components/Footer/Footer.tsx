@@ -9,19 +9,19 @@ const Footer: React.FC = () => {
       <div className="top">
         <div className="item">
           <h1>Categories</h1>
-          <Link to="/camera" className="link">
+          <Link to="/products/camera" className="link">
             Camera
           </Link>
-          <Link to="/smartphone" className="link">
+          <Link to="/products/smartphone" className="link">
             Smartphone
           </Link>
-          <Link to="/wearable" className="link">
+          <Link to="/products/wearable" className="link">
             Wearable
           </Link>
-          <Link to="/audio" className="link">
+          <Link to="/products/audio" className="link">
             Audio
           </Link>
-          <Link to="/pc" className="link">
+          <Link to="/products/pc" className="link">
             Pc
           </Link>
         </div>
