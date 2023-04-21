@@ -1,6 +1,5 @@
 .slider-container {
-  //height: calc(100vh - 80px);
-  height: 100vh;
+  height: calc(100vh - 4.3rem);
   width: 100%;
   max-width: 140rem;
   margin: 0 auto;
@@ -103,7 +102,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 100px;
+    bottom: 20px;
     gap: 30px;
     color: white;
     margin: auto;

@@ -236,7 +236,6 @@ const NavBar: React.FC = () => {
                 className="icons"
                 onClick={() => {
                   navigate("/login");
-                  handleToggle();
                 }}
               />
             )}

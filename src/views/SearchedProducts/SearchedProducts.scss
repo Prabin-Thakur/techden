@@ -3,6 +3,7 @@
   max-width: 140rem;
   margin: 0 auto;
   height: fit-content;
+  min-height: calc(100vh - 4.3rem);
   overflow: hidden;
   display: flex;
   flex-direction: column;

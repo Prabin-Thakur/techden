@@ -219,8 +219,8 @@ const SideBar: React.FC = () => {
             <PersonOutlineOutlinedIcon
               className="icons"
               onClick={() => {
+                dispatch(hideSideBar());
                 navigate("/login");
-                handleToggle();
               }}
             />
           )}
