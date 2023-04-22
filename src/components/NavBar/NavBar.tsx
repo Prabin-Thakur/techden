@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./NavBar.scss";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
   const [openSearch, setOpenSearch] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [openUserDetails, setOpenUserDetails] = useState<boolean>(false);
-  const { handleLogout } = useAuth();
+  const { handleLogout, deleteUserAccount } = useAuth();
 
   // const searchRef = useRef<HTMLDivElement>(null);
   // const searchInputRef = useRef<any>(null);
@@ -211,10 +211,10 @@ const NavBar: React.FC = () => {
                     <div className="tooltip-button" onClick={handleLogout}>
                       Log out&nbsp; <LogoutRoundedIcon className="icon" />
                     </div>
-                    {/* <div className="tooltip-button" onClick={deleteUserAccount}>
+                    <div className="tooltip-button" onClick={deleteUserAccount}>
                       Delete Account&nbsp;{" "}
                       <PersonRemoveRoundedIcon className="icon" />
-                    </div> */}
+                    </div>
                   </div>
                 }
                 open={openUserDetails}

@@ -4,6 +4,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  deleteUser,
 } from "firebase/auth";
 import { useAppDispatch } from "../redux/hooks";
 import { auth, provider } from "../firebase";
@@ -12,8 +13,6 @@ import { showSnackBar } from "../redux/snackBar/snackBarSlice";
 import { mapAuthCodeToMessage } from "../utils";
 import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/auth";
 
 const useAuth = () => {
   const [currentUser, setCurrentUser] = useState<any>("");
@@ -53,28 +52,27 @@ const useAuth = () => {
     }
   }, [currentUser?.uid]);
 
-  // //for deleting account
-  // async function deleteUserAccount() {
-  //   const user: any = firebase.auth().currentUser;
-  //   const credential: any = firebase.auth.EmailAuthProvider.credential(
-  //     user.email,
-  //     password
-  //   );
-  //   const result = await user.reauthenticateWithCredential(credential);
-
-  //   try {
-  //     await user?.delete();
-  //     console.log("User account deleted successfully.");
-  //     dispatch(
-  //       showSnackBar({ text: "Account deleted SuccessFully", type: "success" })
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //     dispatch(
-  //       showSnackBar({ text: "Failed to delete account", type: "error" })
-  //     );
-  //   }
-  // }
+  //for deleting account
+  async function deleteUserAccount() {
+    const user: any = auth.currentUser;
+    try {
+      await user.delete();
+      dispatch(
+        showSnackBar({
+          text: "Account deleted SuccessFully",
+          type: "success",
+        })
+      );
+      localStorage.setItem("isLoggedIn", JSON.stringify(false));
+      localStorage.removeItem("userId");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        showSnackBar({ text: "Failed to delete account", type: "error" })
+      );
+    }
+  }
 
   //for handling SignUp
   async function handleSignup() {
@@ -247,7 +245,7 @@ const useAuth = () => {
     formSubmitHandler,
     googleSubmitHandler,
     handleLogout,
-    // deleteUserAccount,
+    deleteUserAccount,
   };
 };
 

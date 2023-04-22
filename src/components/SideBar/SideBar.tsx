@@ -30,7 +30,7 @@ const SideBar: React.FC = () => {
   const { cartList } = useStorage();
   const products: Product[] = useAppSelector((state) => state.products) || [];
   const [openUserDetails, setOpenUserDetails] = useState<boolean>(false);
-  const { handleLogout } = useAuth();
+  const { handleLogout, deleteUserAccount } = useAuth();
 
   const handleToggle = () => {
     setOpenUserDetails((prevIsOpen) => !prevIsOpen);
@@ -195,10 +195,10 @@ const SideBar: React.FC = () => {
                   <div className="tooltip-button" onClick={handleLogout}>
                     Log out&nbsp; <LogoutRoundedIcon className="icon" />
                   </div>
-                  {/* <div className="tooltip-button" onClick={deleteUserAccount}>
-                      Delete Account&nbsp;{" "}
-                      <PersonRemoveRoundedIcon className="icon" />
-                    </div> */}
+                  <div className="tooltip-button" onClick={deleteUserAccount}>
+                    Delete Account&nbsp;{" "}
+                    <PersonRemoveRoundedIcon className="icon" />
+                  </div>
                 </div>
               }
               open={openUserDetails}
