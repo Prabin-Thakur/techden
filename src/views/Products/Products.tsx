@@ -42,6 +42,7 @@ const Products: React.FC = () => {
     setCurrentPage(1);
   }, [categoryName, sortBy]);
 
+  //filters array based on categpry and sorts
   const filteredProducts = useMemo(() => {
     if (products.length === 0) {
       return [];
@@ -86,6 +87,7 @@ const Products: React.FC = () => {
     }
   }, [categoryName, sortBy, products]);
 
+  //slices array to show on individual pages
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
   const itemsForCurrentPage = useMemo(() => {
@@ -124,7 +126,7 @@ const Products: React.FC = () => {
                         setCategoryName((prev) =>
                           prev.filter((name) => name !== value)
                         );
-                        inputFilterRef.current.blur();
+                        // inputFilterRef.current.blur();
                       }}
                       deleteIcon={
                         <CancelRoundedIcon
