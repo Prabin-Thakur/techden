@@ -4,7 +4,6 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  deleteUser,
 } from "firebase/auth";
 import { useAppDispatch } from "../redux/hooks";
 import { auth, provider } from "../firebase";
@@ -15,7 +14,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
-  const [currentUser, setCurrentUser] = useState<any>("");
+  const [currentUser, setCurrentUser] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [googleLoading, setGoogleLoading] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -24,6 +23,27 @@ const useAuth = () => {
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser && Object.keys(currentUser).length > 0) {
+      if (
+        localStorage.getItem("isLoggedIn") === "true" &&
+        localStorage.getItem("userId")!.length > 0
+      ) {
+        return;
+      }
+      localStorage.setItem("isLoggedIn", JSON.stringify(true));
+      localStorage.setItem("userId", JSON.stringify(currentUser.uid));
+      return;
+    }
+    if (currentUser && Object.keys(currentUser).length === 0) {
+      if (localStorage.getItem("isLoggedIn") === "false") {
+        return;
+      }
+      localStorage.setItem("isLoggedIn", JSON.stringify(false));
+      localStorage.removeItem("userId");
+    }
+  }, [currentUser]);
 
   const signup = (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);

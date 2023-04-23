@@ -112,7 +112,8 @@ const Products: React.FC = () => {
                 <OutlinedInput
                   id="select-multiple-chip"
                   label="Filter Product"
-                  inputRef={inputFilterRef}
+                  // inputRef={inputFilterRef}
+                  ref={inputFilterRef}
                 />
               }
               renderValue={(selected) => (
