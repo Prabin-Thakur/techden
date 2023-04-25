@@ -28,6 +28,7 @@ const useAuth = () => {
     if (currentUser && Object.keys(currentUser).length > 0) {
       if (
         localStorage.getItem("isLoggedIn") === "true" &&
+        localStorage.getItem("userId") &&
         localStorage.getItem("userId")!.length > 0
       ) {
         return;

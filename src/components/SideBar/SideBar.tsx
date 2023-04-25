@@ -192,10 +192,30 @@ const SideBar: React.FC = () => {
             <Tooltip
               title={
                 <div className="login-tooltip">
-                  <div className="tooltip-button" onClick={handleLogout}>
+                  <div
+                    className="tooltip-button"
+                    onClick={() => {
+                      const isConfirmed = window.confirm(
+                        "Are you sure you want to logout?"
+                      );
+                      if (isConfirmed) {
+                        handleLogout();
+                      }
+                    }}
+                  >
                     Log out&nbsp; <LogoutRoundedIcon className="icon" />
                   </div>
-                  <div className="tooltip-button" onClick={deleteUserAccount}>
+                  <div
+                    className="tooltip-button"
+                    onClick={() => {
+                      const isConfirmed = window.confirm(
+                        "Are you sure you want to delete your account?"
+                      );
+                      if (isConfirmed) {
+                        deleteUserAccount();
+                      }
+                    }}
+                  >
                     Delete Account&nbsp;{" "}
                     <PersonRemoveRoundedIcon className="icon" />
                   </div>
